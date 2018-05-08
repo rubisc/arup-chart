@@ -1,0 +1,166 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<script src="../highcharts/highstock.js"></script>
+<script src="../highcharts/modules/exporting.js"></script>
+
+<dom-module id="arup-chart">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div id="chartdiv"></div>
+  </template>
+
+  <script>
+    /**
+     * `arup-chart`
+     * reusable chart component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ArupChart extends Polymer.Element {
+      static get is() {
+        return 'arup-chart';
+      }
+      static get properties() {
+        return {
+          arupChart: {
+            type: String
+          },
+          //is this meant to live here? nope...
+          type: {
+            type: String,
+            value: 'line',
+            //function below not defined anywhere
+            // observer: '_updateType',
+            reflectToAttribute: true
+          },
+          title: {
+            type: String,
+            value: 'Arup Chart Title',
+            //function below not defined anywhere
+            // observer: '_updateTitle',
+            reflectToAttribute: true
+          },
+          subtitle: {
+            type: String,
+            value: 'chart subtitle',
+            //function below not defined anywhere
+            // observer: '_updateSubtitle',
+            reflectToAttribute: true
+          },
+          iterateAcrossAxis: {
+            type: String,
+            value: 'x',
+            //function below not defined anywhere
+            // observer: '_updateIterateAcrossAxis',
+            reflectToAttribute: true
+            //if it's "y" then you do chart.inverted = true && xAxis.reversed = false;
+          },
+          xAxisLabel: {
+            type: String
+          },
+          xAxisCategories: {
+            type: Array
+          },
+          yAxisLabel: {
+            type: String
+          },
+          data: {
+            type: Array,
+            value: [
+              { "name": "data item 1",
+              "data": [1, 2, 3] },
+              { "name": "data item 2",
+              "data": [3, 0, 7] },
+              { "name": "data item 3",
+              "data": [7, 13, 11] }
+            ],
+            // format
+            // value: [{
+            //   name: "",
+            //   data: []
+            // }],
+            // value: [],
+            // observer: '_updateData',
+            reflectToAttribute: true
+          },
+          // sampleData: {
+          //   type: Array,
+          //   value: [{ "name": "Tokyo", "data": [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]},
+          //   { "name": "London", "data": [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8] }]
+          // }
+        }
+      }
+
+      constructor() {
+        super();
+      }
+
+      ready() {
+        super.ready();
+        this._initChart();
+      }
+
+      _initChart() {
+        console.log(this.getAttribute('title'));
+        console.log(this.getAttribute('subtitle'));
+        console.log(this.getAttribute('type'));
+        console.log(this.getAttribute('data'));
+        console.log(this.getAttribute('iterate-across-axis'));
+        new Highcharts.Chart(this.$.chartdiv, {
+          title: {
+            text: this.title
+          },
+          subtitle: {
+            text: this.subtitle
+          },
+          chart: {
+            type: this.type,
+            inverted: this.iterateAcrossAxis === 'y' ? true : false
+          },
+          series: this.data,
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            y: 40,
+          },
+          xAxis: {
+            categories: this.iterateAcrossAxis === 'x' ? this.xAxisCategories : undefined,
+            reversed: this.iterateAcrossAxis === 'y' ? false : true,
+            title: {
+              //this might be problematic if we work with anything besides line and pie charts (for example bar charts)
+              // text: this.type === 'line' && this.iterateAcrossAxis === 'y' ? this.xAxisLabel : undefined
+              // text: this.xAxisLabel ? this.xAxisLabel : undefined
+              text: this.type === 'line' && this.xAxisLabel ? this.xAxisLabel : undefined
+            },
+              //this might be problematic if we work with anything besides line and pie charts (for example bar charts)
+              // categories: this.type === 'line' && this.iterateAcrossAxis === 'x' ? this.xAxisCategories : null,
+          },
+          yAxis: {
+            title: {
+                //this might be problematic if we work with anything besides line and pie charts (for example bar charts)
+                  // text: this.type === 'line' && this.iterateAcrossAxis === 'x' ? this.yAxisLabel : null
+                // text: this.yAxisLabel ? this.yAxisLabel : undefined
+                text: this.type === 'line' && this.yAxisLabel ? this.yAxisLabel : undefined
+              }
+          }
+          //exporting stuff has to be made customizeable by users
+        })
+        console.log(this.getAttribute('xAxisLabel'));
+        console.log(this.getAttribute('yAxisLabel'));
+      }
+
+      // _updateType() {
+      //   console.log("You in here???");
+      // }
+
+    }
+
+    window.customElements.define(ArupChart.is, ArupChart);
+  </script>
+</dom-module>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>arup-chart demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../arup-chart.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic arup-chart demo</h3>
+      <demo-snippet>
+        <template>
+          <!-- data="[{ "name": "Tokyo", "data": [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]}, { "name": "London", "data": [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8] }]" -->
+          <arup-chart x-axis-label="hiii ex label" y-axis-label="hiiii y label"></arup-chart>
+          <arup-chart type="bar" title="Testing Attribute Title" subtitle="does this work?"></arup-chart>
+          <arup-chart x-axis-label="hiii ex label" y-axis-label="hiiii y label" data="[{ "name": "Tokyo", "data": [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]}, { "name": "London", "data": [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8] }]"></arup-chart>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
