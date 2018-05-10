@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <script src="../highcharts/highstock.js"></script>
 <script src="../highcharts/modules/exporting.js"></script>
+<script src="../lodash/lodash.js"></script>
 
 <dom-module id="arup-chart">
   <template>
@@ -177,12 +178,12 @@
             enabled: true,
             filename: "arup-chart",
             chartOptions: {
-              chart: {
-                //LETTER_DIMENSION_HEIGHT = 279.4
-                //LETTER_DIMENSION_WIDTH  = 215.9
-                height: (this.legendItemCount * 16) > this.$.chartdiv.offsetHeight ? (this.legendItemCount * 16) : this.$.chartdiv.offsetHeight
-                // height: 400
-              },
+              // chart: {
+              //   //LETTER_DIMENSION_HEIGHT = 279.4
+              //   //LETTER_DIMENSION_WIDTH  = 215.9
+              //   height: (this.legendItemCount * 16) > this.$.chartdiv.offsetHeight ? (this.legendItemCount * 16) : this.$.chartdiv.offsetHeight
+              //   // height: 400
+              // },
               legend: {
                 y: 20,
                  navigation: {
@@ -204,10 +205,11 @@
             }
           });
         }
-        console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
-        console.log(this.legendItemCount);
-        console.log(this.series);
-        console.log(this.chart)
+        // console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
+        // console.log(this.legendItemCount);
+        // console.log(this.series);
+        // console.log(this.chart)
+        console.log(this.chart.series);
       }
 
 
