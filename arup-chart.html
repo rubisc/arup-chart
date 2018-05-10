@@ -104,6 +104,7 @@
       // }
 
       _drawChart() {
+        console.log(this.$.chartdiv.offsetHeight)
         // console.log(this.getAttribute('title'));
         // console.log(this.getAttribute('series'));
         this.chart = new Highcharts.Chart(this.$.chartdiv, {
@@ -180,6 +181,7 @@
                 //LETTER_DIMENSION_HEIGHT = 279.4
                 //LETTER_DIMENSION_WIDTH  = 215.9
                 height: (this.legendItemCount * 16) > this.$.chartdiv.offsetHeight ? (this.legendItemCount * 16) : this.$.chartdiv.offsetHeight
+                // height: 400
               },
               legend: {
                 y: 20,
@@ -194,17 +196,16 @@
           }
           ////////////////////// END OF EXPORTING PORTION //////////////////////
         })
-        //if chart is a pie chart, display percentages not values 
+        //if chart is a pie chart, display percentage as well as values
         if (this.type === 'pie') {
           this.chart.series[0].update({
             tooltip:  {
-              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+              pointFormat: '<b>{point.y} ({point.percentage:.1f}%)</b>'
             }
           });
         }
         console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
         console.log(this.legendItemCount);
-        console.log(this.$.chartdiv.offsetHeight)
         console.log(this.series);
         console.log(this.chart)
       }
