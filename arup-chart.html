@@ -91,7 +91,7 @@
 
       ready() {
         super.ready();
-        this._initChart();
+        this._drawChart();
       }
 
       countLegendItems(series) {
@@ -103,7 +103,7 @@
       //   console.log("---- leaving update series ----")
       // }
 
-      _initChart() {
+      _drawChart() {
         // console.log(this.getAttribute('title'));
         // console.log(this.getAttribute('series'));
         this.chart = new Highcharts.Chart(this.$.chartdiv, {
@@ -124,7 +124,7 @@
               //this might be problematic if we work with anything besides line and pie charts (for example bar charts)
               // text: this.type === 'line' && this.iterateAcrossAxis === 'y' ? this.xAxisLabel : undefined
               // text: this.xAxisLabel ? this.xAxisLabel : undefined
-              text: this.type === 'line' && this.xAxisLabel ? this.xAxisLabel : undefined
+              text: this.type !== 'pie' && this.xAxisLabel ? this.xAxisLabel : undefined
             },
             //this might be problematic if we work with anything besides line and pie charts (for example bar charts)
             // categories: this.type === 'line' && this.iterateAcrossAxis === 'x' ? this.xAxisCategories : null,
@@ -134,7 +134,7 @@
               //this might be problematic if we work with anything besides line and pie charts (for example bar charts)
               // text: this.type === 'line' && this.iterateAcrossAxis === 'x' ? this.yAxisLabel : null
               // text: this.yAxisLabel ? this.yAxisLabel : undefined
-              text: this.type === 'line' && this.yAxisLabel ? this.yAxisLabel : undefined
+              text: this.type !== 'pie' && this.yAxisLabel ? this.yAxisLabel : undefined
             }
           },
           //format for series is different in pie charts than it is for line/spline/bar/etc. so series has to be set according to whether it is a pie chart or not
@@ -171,15 +171,14 @@
             verticalAlign: 'top',
             y: 40,
           },
-          //exporting stuff should have an element as well /////////////////////
+          //exporting stuff should have an element as well? /////////////////////
           exporting: {
             enabled: true,
-            filename: "test export name",
+            filename: "arup-chart",
             chartOptions: {
               chart: {
                 //LETTER_DIMENSION_HEIGHT = 279.4
                 //LETTER_DIMENSION_WIDTH  = 215.9
-                //SHOULD SWITCH 20 FOR ACTUAL VALUE
                 height: (this.legendItemCount * 16) > this.$.chartdiv.offsetHeight ? (this.legendItemCount * 16) : this.$.chartdiv.offsetHeight
               },
               legend: {
@@ -195,11 +194,19 @@
           }
           ////////////////////// END OF EXPORTING PORTION //////////////////////
         })
-        // console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
-        // console.log(this.legendItemCount);
-        // console.log(this.$.chartdiv.offsetHeight)
-        // console.log(this.series);
-        // console.log(this.chart)
+        //if chart is a pie chart, display percentages not values 
+        if (this.type === 'pie') {
+          this.chart.series[0].update({
+            tooltip:  {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            }
+          });
+        }
+        console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
+        console.log(this.legendItemCount);
+        console.log(this.$.chartdiv.offsetHeight)
+        console.log(this.series);
+        console.log(this.chart)
       }
 
 
