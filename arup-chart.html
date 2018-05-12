@@ -78,18 +78,22 @@
             // observer: '_updateSeries',
             reflectToAttribute: true
           },
+          seriesWithScaleFactor: {
+            type: Array,
+            computed: 'computeSeriesWithScaleFactor(series, type)'
+          },
           legendItemCount: {
             type: Number,
             computed: 'countLegendItems(series)'
           },
           yAxisScaleFactor: {
-            type: Number,
-            value: 5
+            type: String,
+            value: "1"
           },
           //only to use for line charts across y yAxisScaleFactor (and remember it's reversed so visually it's the y axis, but on paper it's x)
           xAxisScaleFactor: {
-            type: Number,
-            value: 1
+            type: String,
+            value: "1"
           }
 
         }
@@ -107,10 +111,48 @@
       countLegendItems(series) {
         return series.length
       }
+
+      computeSeriesWithScaleFactor(series, type) {
+        //turns axis scale factors into numbers and allows reciprocals to work
+        this.yAxisScaleFactor = this.yAxisScaleFactor.includes("/") ? this.yAxisScaleFactor = parseInt(this.yAxisScaleFactor.split("/")[0]) / parseInt(this.yAxisScaleFactor.split("/")[1]) : this.yAxisScaleFactor = parseInt(this.yAxisScaleFactor)
+        this.xAxisScaleFactor = this.xAxisScaleFactor.includes("/") ? this.xAxisScaleFactor = parseInt(this.xAxisScaleFactor.split("/")[0]) / parseInt(this.xAxisScaleFactor.split("/")[1]) : this.xAxisScaleFactor = parseInt(this.xAxisScaleFactor)
+
+        if (type === 'pie') {
+          return series.map(el=>{
+            el[1] = el[1] * this.yAxisScaleFactor;
+          })
+        } else if (type === 'line' && this.iterateAcrossAxis === 'x') {
+          var that = this;
+          _.forEach(series, function(item) {
+            item.data = item.data.map(el => el * that.yAxisScaleFactor);
+          })
+        }
+        else if (type === 'line' && this.iterateAcrossAxis === 'y') {
+          var data = [];
+          var that = this;
+          _.forEach(series, function(item) {
+            data.push(item.data);
+          })
+          //xAxisScaleFactor changed (only when iterating across y axis because axes flipped)
+          _.forEach(data, function(item) {
+            item.map(el =>{
+              el[0] = el[0] * that.xAxisScaleFactor;
+            })
+          })
+          //yAxisScaleFactor changed
+          _.forEach(data, function(item) {
+            item.map(el =>{
+              el[1] = el[1] * that.yAxisScaleFactor;
+            })
+          })
+        }
+      }
+
       // _updateSeries(_s) {
-      //   console.log("---- in update series ----")
-      //   console.log(_s)
-      //   console.log("---- leaving update series ----")
+      //   // console.log("---- in update series ----")
+      //   // console.log(_s)
+      //   // console.log("---- leaving update series ----")
+      //   // this._drawChart()
       // }
 
       _drawChart() {
@@ -208,43 +250,20 @@
         })
         //if chart is a pie chart, display percentage as well as values
         if (this.type === 'pie') {
-          this.series.map(el=>{
-            el[1] = el[1] * this.yAxisScaleFactor
-          })
           this.chart.series[0].update({
             tooltip:  {
               pointFormat: '<b>{point.y} ({point.percentage:.1f}%)</b>'
             }
           })
         }
-        else if (this.type === 'line' && this.iterateAcrossAxis === 'x') {
-          this.series.map(obj =>{
-            obj.data = obj.data.map(el => el * this.yAxisScaleFactor)
-          })
-        }
-        else if (this.type === 'line' && this.iterateAcrossAxis === 'y') {
-          var data = []
-          _.forEach(this.series, function(item) {
-            data.push(item.data)
-          })
-          //xAxisScaleFactor changed (only when iterating across y axis because axes flipped)
-          // _.forEach(data, function(item) {
-          //   item.map(el =>{
-          //   el[0] = el[0] * this.xAxisScaleFactor
-          //   })
-          // })
-          // //yAxisScaleFactor changed
-          // _.forEach(data, function(item) {
-          //   item.map(el =>{
-          //   el[1] = el[1] * this.yAxisScaleFactor
-          //   })
-          // })
-        }
+
         // console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
-        console.log(this.legendItemCount);
+        // console.log(this.legendItemCount);
+        console.log("SERIES");
         console.log(this.series);
         // console.log(this.chart)
-        // console.log(this.chart.series);
+        console.log("CHART SERIES");
+        console.log(this.chart.series);
       }
 
 
