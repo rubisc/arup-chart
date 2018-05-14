@@ -114,8 +114,8 @@
 
       computeSeriesWithScaleFactor(series, type) {
         //turns axis scale factors into numbers and allows reciprocals to work
-        this.yAxisScaleFactor = this.yAxisScaleFactor.includes("/") ? this.yAxisScaleFactor = parseInt(this.yAxisScaleFactor.split("/")[0]) / parseInt(this.yAxisScaleFactor.split("/")[1]) : this.yAxisScaleFactor = parseInt(this.yAxisScaleFactor)
-        this.xAxisScaleFactor = this.xAxisScaleFactor.includes("/") ? this.xAxisScaleFactor = parseInt(this.xAxisScaleFactor.split("/")[0]) / parseInt(this.xAxisScaleFactor.split("/")[1]) : this.xAxisScaleFactor = parseInt(this.xAxisScaleFactor)
+        this.yAxisScaleFactor = this.yAxisScaleFactor.includes("/") ? parseInt(this.yAxisScaleFactor.split("/")[0]) / parseInt(this.yAxisScaleFactor.split("/")[1]) : parseInt(this.yAxisScaleFactor)
+        this.xAxisScaleFactor = this.xAxisScaleFactor.includes("/") ? parseInt(this.xAxisScaleFactor.split("/")[0]) / parseInt(this.xAxisScaleFactor.split("/")[1]) : parseInt(this.xAxisScaleFactor)
 
         if (type === 'pie') {
           return series.map(el=>{
