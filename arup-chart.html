@@ -229,12 +229,12 @@
             enabled: true,
             filename: "arup-chart",
             chartOptions: {
-              // chart: {
+              chart: {
               //   //LETTER_DIMENSION_HEIGHT = 279.4
               //   //LETTER_DIMENSION_WIDTH  = 215.9
-              //   height: (this.legendItemCount * 16) > this.$.chartdiv.offsetHeight ? (this.legendItemCount * 16) : this.$.chartdiv.offsetHeight
+              height: (this.legendItemCount * 16) > 400 ? (this.legendItemCount * 16) : 400
               //   // height: 400
-              // },
+              },
               legend: {
                 y: 20,
                  navigation: {
@@ -256,14 +256,14 @@
             }
           })
         }
-
-        // console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
+        console.log("CHECK HEIGHT STUFF");
+        console.log((this.legendItemCount * 16) > this.$.chartdiv.offsetHeight);
         // console.log(this.legendItemCount);
-        console.log("SERIES");
-        console.log(this.series);
+        // console.log("SERIES");
+        // console.log(this.series);
         // console.log(this.chart)
-        console.log("CHART SERIES");
-        console.log(this.chart.series);
+        // console.log("CHART SERIES");
+        // console.log(this.chart.series);
       }
 
 
