@@ -20,7 +20,6 @@ $ polymer test
 
 Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
 
-(Rough notes to polish)
 
 ## Assigning attributes
 
@@ -49,4 +48,4 @@ __x-axis-scaleFactor__: use this only for line charts that iterate across the y 
 
 __Pie Charts__
 Typically, because pie charts display a percentage, we don't care to provide a scale factor because it will not affect the chart.
-However, the feature is still enabled in case values do have to change; these values will be displayed in the tooltip when a user hovers over the chart.
+However, the feature is still enabled in case values do have to change; these values will be reflected in the tooltip when a user hovers over the chart.
