@@ -133,18 +133,18 @@
           _.forEach(series, function(item) {
             data.push(item.data);
           })
-          //xAxisScaleFactor changed (only when iterating across y axis because axes flipped)
           _.forEach(data, function(item) {
             item.map(el =>{
-              el[0] = el[0] * that.xAxisScaleFactor;
+              if (el[0]) {
+              //set xAxisScaleFactor (only when iterating across y axis because axes flipped)
+                el[0] = el[0] * that.xAxisScaleFactor;
+              } if (el[1]) {
+                //set yAxisScaleFactor
+                el[1] = el[1] * that.yAxisScaleFactor;
+              }
             })
           })
-          //yAxisScaleFactor changed
-          _.forEach(data, function(item) {
-            item.map(el =>{
-              el[1] = el[1] * that.yAxisScaleFactor;
-            })
-          })
+
         }
       }
 
@@ -258,7 +258,7 @@
         }
         // console.log(this.legendItemCount);
         // console.log("SERIES");
-        // console.log(this.series);
+        console.log(this.series);
         // console.log(this.chart)
         // console.log("CHART SERIES");
         // console.log(this.chart.series);
