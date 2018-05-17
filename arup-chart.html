@@ -94,6 +94,11 @@
           xAxisScaleFactor: {
             type: String,
             value: "1"
+          },
+          exportFileName: {
+            type: String,
+            value: "arup chart",
+            reflectToAttribute: true
           }
 
         }
@@ -227,7 +232,7 @@
           //exporting stuff should have an element as well? /////////////////////
           exporting: {
             enabled: true,
-            filename: "arup-chart",
+            filename: this.exportFileName,
             chartOptions: {
               chart: {
               //   //LETTER_DIMENSION_HEIGHT = 279.4
