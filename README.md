@@ -20,7 +20,7 @@ Refer to demo directory for more examples
 ## To use within your polymer app:
 
 ```
-$ bower install rubisc/arup-chart
+$ bower install --save rubisc/arup-chart
 ```
 
 ## Assigning attributes
