@@ -44,9 +44,9 @@ If your chart is iterating across the y axis, x and y labels will be reversed. M
 You may adjust data values by a scale factor; that axis will automatically be multiplied by the number you provide.
 If you wish to divide by one you must provide the reciprocal of that number.
 
-__y-axis-scaleFactor__: use this to adjust values for pie charts or line charts that iterate across the x axis.  
+__y-axis-scale-factor__: use this to adjust values for pie charts or line charts that iterate across the x axis.  
 
-__x-axis-scaleFactor__: use this only for line charts that iterate across the y axis. Remember that if your chart iterates across the y axis then the x and y axes are swapped, so you will have to assign them accordingly.
+__x-axis-scale-factor__: use this only for line charts that iterate across the y axis. Remember that if your chart iterates across the y axis then the x and y axes are swapped, so you will have to assign them accordingly.
 
 __Pie Charts__
 Typically, because pie charts display a percentage, we don't care to provide a scale factor because it will not affect the chart.
